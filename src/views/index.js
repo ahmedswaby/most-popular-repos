@@ -1,25 +1,39 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../App.scss';
 import Items from '../components/item';
-import fetchData from '../apiActions'
 
 function Index() {
+	const [popularRepos, setPopularRepos] = useState([]);
 
-  const fetch = async () => {
-    await fetchData().then((data) => {
-        console.log(data);
-        return data;
-      })
+
+
+
+	useEffect(() => {
+    async function  fetchApi() {
+			const data = await fetch(
+				'https://api.github.com/search/repositories?q=created:%3E2017-10-22&sort=stars&order=desc'
+			)
+				.then((res) => res.json())
+				.then((data) => data);
+
+			setPopularRepos(data.items);
+		};
+    fetchApi();
+  }, []);
+  
+
+  const handle = () => {
+    console.log(popularRepos);
   }
 
 
-  useEffect(fetch, []);
-    
-
-
-  return <div className='App'>
-      <Items test="test"></Items>
-    </div>;
+	return (
+		<div className='App' onClick={handle}>
+			{popularRepos.map((repo) => (
+				<Items key={repo.id} repo={repo}></Items>
+			))}
+		</div>
+	);
 }
 
 export default Index;
