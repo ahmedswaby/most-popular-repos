@@ -3,15 +3,25 @@
 function Item({repo}) {
     return (
         <div className="card mb-3">
-            <div className="row no-gutters">
-                <div className="col-md-4">
-                    {/* <img src="..." alt="..."> */}
+            <div className="row">
+                <div className="col-md-2">
+                    <a href={repo.owner.html_url}>
+                        <img src={repo.owner.avatar_url} alt="" className="img-fluid"/>
+                    </a>
                 </div>
                 <div className="col-md-8">
                     <div className="card-body">
-                        <h5 className="card-title">{repo.name}</h5>
-                        <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                        <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
+                        <h5 className="card-title">
+                            <a href={repo.html_url}>{repo.name}</a>
+                        </h5>
+                        <p className="card-text">{repo.description}</p>
+                        <p className="card-text"> <span className="border border-dark p-1">Stars: {repo.stargazers_count}</span>
+                            <span className="border border-dark p-1 ml-2">Issues: {repo.open_issues_count}</span>
+                        </p>
+                        <p className="card-text"><small className="text-muted">created: {repo.created_at}
+                        by 
+                        <a href={repo.owner.html_url}> {repo.owner.login}</a>
+                        </small></p>
                     </div>
                 </div>
             </div>
