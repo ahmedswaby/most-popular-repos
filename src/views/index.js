@@ -13,8 +13,9 @@ const formatDate = (date) => {
 
 	return [year, month, day].join('-');
 };
+
 function Index() {
-	const [loading, setloading] = useState(true)
+	const [loading, setloading] = useState(true);
 	const [popularRepos, setPopularRepos] = useState([]);
 	const [pageNum, setpNum] = useState(+1);
 	// fetch data
@@ -39,7 +40,7 @@ function Index() {
 	}
 
 	useEffect(() => {
-		fetchApi()
+		fetchApi();
 	}, [pageNum]);
 
 	const addMoreRepos = () => {
@@ -47,21 +48,24 @@ function Index() {
 	};
 
 	return (
-		<div className='container mt-5'>
+		<div className='container mt-5 mb-5'>
 			<h1 className='text-center mb-4'>last 30 days's most popluar repos</h1>
 			{popularRepos.map((repo) => (
 				<Items key={repo.id} repo={repo}></Items>
 			))}
-			<div className='d-flex justify-content-center flex-column m-auto' style={{
-				maxHeight : 'fit-content',
-				alignItems: 'center'
-			}}
-			>
-				{loading ? 
-					<div class='spinner-border text-primary mb-3' role='status'>
-						<span class='visually-hidden'></span>
+			<div
+				className='d-flex justify-content-center flex-column m-auto'
+				style={{
+					maxHeight: 'fit-content',
+					alignItems: 'center',
+				}}>
+				{loading ? (
+					<div className='spinner-border text-primary mb-3' role='status'>
+						<span className='visually-hidden'></span>
 					</div>
-				: false }
+				) : (
+					false
+				)}
 				<button className='btn btn-dark' onClick={() => addMoreRepos()}>
 					More Repos
 				</button>
